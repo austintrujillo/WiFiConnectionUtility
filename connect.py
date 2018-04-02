@@ -36,7 +36,7 @@ def connectToNetwork(n):
         os.system('sudo killall wpa_supplicant 2> /dev/null')
         os.system('sudo systemctl stop NetworkManager.service 2> /dev/null')
         os.system('sudo netctl start ' + networks[n])
-        print('Successfully connected to ' + networks[n] + '\n')
+        print('\nSuccessfully connected to ' + networks[n] + '\n')
     except StandardError:
         print('\nUnable to Connect to ' + networks[n] + '. Exiting...\n')
 

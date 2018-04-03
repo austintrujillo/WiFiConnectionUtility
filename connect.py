@@ -3,10 +3,11 @@
 # Netctl WiFi Connection Utility
 # Austin Trujillo
 # Created 2018 April 02
-# Updated 2018 April 02
+# Updated 2018 April 03
 
 
-import os
+import os, sys
+
 networks = [f for f in os.listdir('/etc/netctl/') if os.path.isfile(os.path.join('/etc/netctl', f))]
 
 
@@ -28,7 +29,7 @@ def selectNetwork():
 
 
 def connectToNetwork(n):
-    print('\nAttempting to connect to ' + networks[n] + '...\n')
+    print('\nAttempting to connect to %s...\n' % (networks[n]))
 
     try:
         os.system('sudo killall dhcpcd 2> /dev/null')
@@ -42,4 +43,14 @@ def connectToNetwork(n):
 
 
 os.system('clear')
-selectNetwork()
+
+if len(sys.argv) > 1:
+    argnet = str(sys.argv[1]).lower()
+
+    if argnet in networks:
+        connectToNetwork(networks.index(argnet))
+    else:
+        print('Network not saved! Please run wifi-menu')
+
+else:
+    selectNetwork()
